@@ -1,0 +1,14 @@
+/* Palette for Black & Gold theme */
+:root{
+  --bg: #080808;
+  --surface: #0f0f10;
+  --muted: #cfc6b2;
+  --gold: #D4AF37;
+  --gold-dark: #b88f2a;
+  --accent: #D4AF37;
+  --white: #f6f6f6;
+  --glass: rgba(255,255,255,0.03);
+  --max-width: 1200px;
+}
+
+html,body{background:var(--bg);color:var(--white)}

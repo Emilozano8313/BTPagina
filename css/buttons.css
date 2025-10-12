@@ -1,0 +1,37 @@
+/* Button types required by product
+	Type 1: Outline gold (transparent bg, gold border, gold text)
+	Type 2: Solid gold (gold bg, black text) - vibrant / enabled look
+	Type 3: Outline white (transparent bg, white border, white text)
+*/
+
+.btn-gold-outline{background:transparent;border:1.6px solid var(--gold);color:var(--gold);padding:10px 12px;border-radius:10px;font-weight:700;cursor:pointer}
+.btn-gold-outline:hover{box-shadow:0 10px 30px rgba(212,175,55,0.12);transform:translateY(-2px)}
+
+/* Stronger rule for product cards: force Type 1 outline look (pill, thin gold border) */
+.card-item .card-footer .btn-gold-outline{
+	border-width:1.6px;
+	border-style:solid;
+	border-color:var(--gold);
+	background:transparent !important;
+	color:var(--gold) !important;
+	padding:8px 16px !important;
+	border-radius:999px !important;
+	font-weight:700;
+	box-shadow:none !important;
+	transition:transform 140ms ease, box-shadow 140ms ease;
+}
+.card-item .card-footer .btn-gold-outline:hover{ transform:translateY(-2px); box-shadow:0 10px 26px rgba(212,175,55,0.08) }
+
+.btn-gold{background:linear-gradient(180deg,var(--gold),var(--gold-dark));color:#081;border:none;padding:10px 16px;border-radius:10px;font-weight:800;cursor:pointer;box-shadow:0 8px 22px rgba(184,143,42,0.18)}
+.btn-gold:active{transform:translateY(1px)}
+
+.btn-white-outline{background:transparent;border:1px solid rgba(255,255,255,0.95);color:var(--white);padding:8px 12px;border-radius:10px;cursor:pointer}
+.btn-white-outline:hover{background:rgba(255,255,255,0.03)}
+
+.btn-plain.small{padding:6px 8px;font-size:0.9rem}
+
+/* Backwards compatibility aliases */
+.cta{display:inline-block}
+.add-btn{display:inline-block}
+
+/* .btn-cart removed — project uses .btn-gold-outline for add-to-cart buttons */

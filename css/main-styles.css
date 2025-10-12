@@ -1,0 +1,7 @@
+@import './colors.css';
+@import './typography.css';
+@import './layout.css';
+@import './components.css';
+@import './buttons.css';
+
+/* main-styles.css intentionally left minimal: modules handle specifics */

@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>BlackTapioca — Tapioca Frappe</title>
+  <link rel="stylesheet" href="css/colors.css">
+  <link rel="stylesheet" href="css/typography.css">
+  <link rel="stylesheet" href="css/main-styles.css">
+</head>
+<body>
+
+  <header class="site-header" role="banner">
+    <div class="header-inner container">
+      <div class="brand">
+        <a href="/" aria-label="BlackTapioca Home"><img src="img/logoBlanco.png" alt="BlackTapioca"/></a>
+        <div style="display:flex;flex-direction:column">
+          <strong style="color:var(--gold)">BlackTapioca</strong>
+          <small class="small">Tapioca Frappe artesanal</small>
+        </div>
+      </div>
+
+      <nav aria-label="Principal" class="nav-actions">
+        <div class="search-wrap" style="position:relative">
+          <input id="searchInput" class="search-input" type="search" autocomplete="off" placeholder="Buscar sabor, ingrediente o topping" aria-label="Buscar en el menú">
+          <div id="typeahead" class="typeahead-list" role="listbox" aria-label="Sugerencias"></div>
+        </div>
+        <a class="cta" href="#menu">Ver Menú</a>
+        <button id="cartToggle" class="btn-plain" aria-controls="cartPanel" aria-expanded="false">Carrito <span id="cartCount" class="cart-count">0</span></button>
+      </nav>
+    </div>
+  </header>
+
+  <main role="main">
+    <section class="hero container" aria-labelledby="hero-heading">
+      <div class="hero-media">
+        <img src="img/Chocolate.jpg" alt="Tapioca Chocolate" />
+      </div>
+      <div class="hero-content" style="text-align:center;align-self:center">
+        <h1 id="hero-heading">Tapioca Frappes premium — frescura y sabor en cada sorbo</h1>
+        <p class="lead">Descubre nuestras recetas artesanales con tapioca hecha a mano. Pide fácil y recibe en poco tiempo.</p>
+        <div style="margin-top:18px;display:flex;gap:12px;align-items:center;justify-content:center">
+          <a href="#menu" class="btn-gold">Explorar Menú</a>
+          <a class="btn-white-outline" href="https://wa.me/7774467451">Pedir por WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu" class="container" aria-labelledby="menu-heading">
+      <h2 id="menu-heading" class="section-title">Nuestro Menú</h2>
+      <p class="small" style="margin-top:6px">Sabores seleccionados, tamaño único. Todos los frappes $88 MXN.</p>
+
+      <div class="menu-grid" id="menuGrid">
+        <article class="card-item" data-name="Tapioca Chocolate" data-price="88.00">
+          <img src="img/Chocolate.jpg" alt="Tapioca Chocolate">
+          <h4>Tapioca Chocolate</h4>
+          <p class="small">Batido cremoso con intenso chocolate y perlas suaves.</p>
+          <div class="card-footer">
+            <span class="price">$88.00 MXN</span>
+            <button class="btn-gold-outline" onclick="handleAddToCart(this)">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="card-item" data-name="Tapioca Mazapán" data-price="88.00">
+          <img src="img/Mazapan.jpg" alt="Tapioca Mazapán">
+          <h4>Tapioca Mazapán</h4>
+          <p class="small">Toque a mazapán para un sabor reconfortante.</p>
+          <div class="card-footer">
+            <span class="price">$88.00 MXN</span>
+            <button class="btn-gold-outline" onclick="handleAddToCart(this)">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="card-item" data-name="Tapioca Mora Azul" data-price="88.00">
+          <img src="img/MoraAzul.jpg" alt="Tapioca Mora Azul">
+          <h4>Tapioca Mora Azul</h4>
+          <p class="small">Refrescante y frutal, notas ácidas y dulces.</p>
+          <div class="card-footer">
+            <span class="price">$88.00 MXN</span>
+            <button class="btn-gold-outline" onclick="handleAddToCart(this)">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="card-item" data-name="Tapioca Taro" data-price="88.00">
+          <img src="img/Taro.jpg" alt="Tapioca Taro">
+          <h4>Tapioca Taro</h4>
+          <p class="small">Sabor suave y aterciopelado, favorito de la casa.</p>
+          <div class="card-footer">
+            <span class="price">$88.00 MXN</span>
+            <button class="btn-gold-outline" onclick="handleAddToCart(this)">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="card-item" data-name="Tapioca Matcha" data-price="88.00">
+          <img src="img/Matcha.jpg" alt="Tapioca Matcha">
+          <h4>Tapioca Matcha</h4>
+          <p class="small">Matcha balanceado con leche cremosa y perlas.</p>
+          <div class="card-footer">
+            <span class="price">$88.00 MXN</span>
+            <button class="btn-gold-outline" onclick="handleAddToCart(this)">Agregar al carrito</button>
+          </div>
+        </article>
+
+        <article class="card-item" data-name="Tapioca Especial" data-price="88.00">
+          <img src="img/Chocolate.jpg" alt="Tapioca Especial">
+          <h4>Tapioca Especial</h4>
+          <p class="small">Selección premium con toppings exclusivos.</p>
+          <div class="card-footer">
+            <span class="price">$88.00 MXN</span>
+            <button class="btn-gold-outline" onclick="handleAddToCart(this)">Agregar al carrito</button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <aside class="container" aria-labelledby="about-heading">
+      <section id="about">
+        <h3 id="about-heading" class="section-title">Nuestra Historia</h3>
+        <p class="small" style="margin-top:8px">Somos una tienda artesanal dedicada a crear bebidas con ingredientes seleccionados y tapioca manipulada a mano. Nos enfocamos en consistencia, sabor y servicio rápido.</p>
+      </section>
+
+      <section id="social-proof" style="margin-top:18px">
+        <h3 class="section-title">Reseñas</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+          <blockquote style="background:var(--surface);padding:12px;border-radius:8px">"La mejor tapioca de la ciudad, servicio súper rápido." — Ana</blockquote>
+          <blockquote style="background:var(--surface);padding:12px;border-radius:8px">"Sabor único y textura perfecta." — Luis</blockquote>
+        </div>
+        <div id="suggestionsList" style="margin-top:14px">
+          <h4 style="color:var(--gold);margin:8px 0">Sugerencias de sabores</h4>
+          <div id="suggestionsContainer" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px"></div>
+        </div>
+      </section>
+    </aside>
+
+    <section id="location" class="container" style="margin-top:18px">
+      <h3 class="section-title">Encuéntranos</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+        <div>
+          <p class="small"><strong>Dirección:</strong> Av Petrichioli 5ta terraza Lomas de Ahuatlan</p>
+          <p class="small"><strong>Horario:</strong> Martes a Domingo de 01:00 pm - 09:00 pm </p>
+        </div>
+        <div>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2500.823432920959!2d-99.26266109162208!3d18.960383155522525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cde100002a2dff%3A0x1c562801979a47ae!2sBlack%20Tapioca!5e1!3m2!1ses-419!2sus!4v1760237244572!5m2!1ses-419!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="container" style="margin-top:18px">
+      <h3 class="section-title">Contacto</h3>
+      <p class="small">WhatsApp: <a id="whatsappLink" href="https://wa.me/7774467451" style="color:var(--gold)">7774467451</a></p>
+      <p class="small">Email: <a href="mailto:contacto@tu-tapioca.com">contacto@tu-tapioca.com</a></p>
+    </section>
+
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="cartPanel" class="cart-panel" aria-hidden="true">
+    <button class="close-btn" id="closeCart" aria-label="Cerrar carrito">×</button>
+    <h4 style="margin:0;color:var(--gold)">Tu Pedido</h4>
+    <div id="cartItems" style="overflow:auto;max-height:48vh;padding-top:8px;display:flex;flex-direction:column;gap:8px"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+      <strong style="color:var(--muted)">Total:</strong>
+      <strong id="cartTotal" style="color:var(--gold)">$0.00 MXN</strong>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <a id="checkoutWhatsapp" href="#" class="cta disabled" style="flex:1;text-align:center" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+      <button class="btn-plain" onclick="clearCart()">Vaciar</button>
+    </div>
+    <footer style="margin-top:12px;font-size:13px;color:var(--muted)">
+      <a href="#contact" style="color:var(--muted);display:block">Política de cambios y devoluciones (NO HAY REEMBOLSOS)</a>
+      <a href="#">Términos y condiciones</a>
+    </footer>
+  </div>
+
+  <footer class="site-footer container" role="contentinfo">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:12px">
+        <img src="img/logoBlanco.png" alt="BlackTapioca" style="height:34px">
+        <div style="color:var(--muted)"><strong>BlackTapioca</strong></div>
+      </div>
+      <div style="color:var(--muted);font-size:14px">&copy; <span id="currentYear"></span> BlackTapioca. Todos los derechos reservados.</div>
+    </div>
+  </footer>
+
+  <script src="js/cart.js" defer></script>
+  <script src="js/ui.js" defer></script>
+</body>
+</html>
