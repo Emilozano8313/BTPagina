@@ -9,10 +9,10 @@ const MENU_ITEMS = [
 ];
 
 const FAQ_ITEMS = [
-  { q: "¿Cuáles son los horarios de atención?", a: "Abrimos de Martes a Domingo de 01:00 pm a 09:00 pm." },
-  { q: "¿Tienen servicio a domicilio?", a: "Sí, puedes pedir a través de WhatsApp y coordinamos la entrega." },
-  { q: "¿Aceptan pagos con tarjeta?", a: "Actualmente aceptamos efectivo y transferencias bancarias." },
-  { q: "¿Los productos contienen lácteos?", a: "La mayoría de nuestros frappés contienen leche, pero puedes preguntar por opciones deslactosadas o de almendra (sujeto a disponibilidad)." }
+  { q: "¿Cuáles son los horarios de atención?", a: "Abrimos de Martes a Domingo de 02:00 pm a 09:00 pm." },
+  { q: "¿Tienen servicio a domicilio?", a: "Sí, puedes pedir a través de WhatsApp y coordinamos la entrega, o puedes encontrarnos en las apps de delivery (Didi food y Rappi)." },
+  { q: "¿Aceptan pagos con tarjeta?", a: "Sí, actualmente aceptamos tarjeta de débito y crédito, efectivo y transferencias bancarias." },
+  { q: "¿Los productos contienen lácteos?", a: "No, todos nuestros productos son lácteos libres. " }
 ];
 
 (function () {
