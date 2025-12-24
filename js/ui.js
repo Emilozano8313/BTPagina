@@ -187,9 +187,43 @@ const FAQ_ITEMS = [
     });
   }
 
+  function openTermsModal() {
+    const modal = document.createElement('div');
+    modal.style.position = 'fixed'; modal.style.inset = '0'; modal.style.display = 'flex'; modal.style.alignItems = 'center'; modal.style.justifyContent = 'center'; modal.style.zIndex = 130;
+    modal.style.background = 'rgba(0,0,0,0.85)';
+    modal.innerHTML = `
+      <div style="background:var(--background-main);padding:24px;border-radius:12px;border:1px solid rgba(255,215,0,0.2);max-width:600px;width:90%;max-height:80vh;display:flex;flex-direction:column;color:var(--text-main);box-shadow:0 25px 50px -12px rgba(0,0,0,0.5)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:12px">
+          <h3 style="color:var(--gold);margin:0">Términos y Condiciones</h3>
+          <button id="closeTerms" class="btn-plain" style="font-size:24px;line-height:1">&times;</button>
+        </div>
+        <div style="overflow-y:auto;padding-right:8px;line-height:1.6;font-size:0.95rem;color:var(--muted)">
+          <p><strong>1. Aceptación:</strong> Al realizar un pedido en BlackTapioca, aceptas estos términos.</p>
+          <p><strong>2. Pedidos y Pagos:</strong> Aceptamos efectivo, transferencias y tarjetas. Los pedidos por WhatsApp requieren confirmación.</p>
+          <p><strong>3. Entregas:</strong> El servicio a domicilio se coordina via WhatsApp o plataformas externas. BlackTapioca no se hace responsable por demoras de terceros.</p>
+          <p><strong>4. Reembolsos:</strong> Debido a la naturaleza perecedera de nuestros productos, no ofrecemos reembolsos una vez preparada la bebida, salvo error de nuestra parte.</p>
+          <p><strong>5. Privacidad:</strong> Tus datos solo se usan para procesar tu pedido y mejorar tu experiencia.</p>
+          <p style="text-align:center;margin-top:24px;font-style:italic">Gracias por elegir BlackTapioca.</p>
+        </div>
+        <div style="margin-top:20px;text-align:right">
+           <button id="btnAcceptTerms" class="btn btn-primary">Entendido</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    function close() { modal.remove(); }
+    modal.querySelector('#closeTerms').addEventListener('click', close);
+    modal.querySelector('#btnAcceptTerms').addEventListener('click', close);
+    modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+  }
+
   // Bind the new button
   const btnSuggest = document.getElementById('btnSuggestFlavor');
   if (btnSuggest) btnSuggest.addEventListener('click', openManualSuggestionModal);
+
+  const btnTerms = document.getElementById('btnTerms');
+  if (btnTerms) btnTerms.addEventListener('click', (e) => { e.preventDefault(); openTermsModal(); });
 
 
   function findAndScroll(term) {
