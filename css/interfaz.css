@@ -1,25 +1,14 @@
 /* Paleta de colores mejorada y animaciones */
 :root {
   --brand-primary: #FFD700; /* Oro vibrante */
-  --brand-secondary: #308236; /* Índigo profundo */
-  --text-main: #e3d9d9;
+  --brand-secondary: #4B0082; /* Índigo profundo */
+  --text-main: #333;
   --text-light: #F5F5F5;
-  --background-main: #312d2d;
-  --background-secondary: #353131;
+  --background-main: #060606;
+  --background-secondary: #000000;
   --accent-success: #28A745;
   --accent-danger: #DC3545;
   --shadow-main: rgba(0, 0, 0, 0.1);
-  --gold: var(--brand-primary);
-  --gold-dark: #b88f2a;
-  --white: var(--text-light);
-  --bg: var(--background-main);
-  --surface: var(--background-secondary);
-  --muted: var(--text-main);
-}
-
-html, body {
-  background: var(--bg);
-  color: var(--muted);
 }
 
 /* Animaciones */

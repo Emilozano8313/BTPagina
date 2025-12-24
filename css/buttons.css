@@ -1,37 +1,154 @@
-/* Button types required by product
-	Type 1: Outline gold (transparent bg, gold border, gold text)
-	Type 2: Solid gold (gold bg, black text) - vibrant / enabled look
-	Type 3: Outline white (transparent bg, white border, white text)
-*/
-
-.btn-gold-outline{background:transparent;border:1.6px solid var(--gold);color:var(--gold);padding:10px 12px;border-radius:10px;font-weight:700;cursor:pointer}
-.btn-gold-outline:hover{box-shadow:0 10px 30px rgba(212,175,55,0.12);transform:translateY(-2px)}
-
-/* Stronger rule for product cards: force Type 1 outline look (pill, thin gold border) */
-.card-item .card-footer .btn-gold-outline{
-	border-width:1.6px;
-	border-style:solid;
-	border-color:var(--gold);
-	background:transparent !important;
-	color:var(--gold) !important;
-	padding:8px 16px !important;
-	border-radius:999px !important;
-	font-weight:700;
-	box-shadow:none !important;
-	transition:transform 140ms ease, box-shadow 140ms ease;
+/* Estilos de botones mejorados */
+.btn {
+  display: inline-block;
+  font-weight: 700;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1.6px solid transparent;
+  padding: 10px 16px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  text-decoration: none; /* Asegura que los enlaces no tengan subrayado */
 }
-.card-item .card-footer .btn-gold-outline:hover{ transform:translateY(-2px); box-shadow:0 10px 26px rgba(212,175,55,0.08) }
 
-.btn-gold{background:linear-gradient(180deg,var(--gold),var(--gold-dark));color:#081;border:none;padding:10px 16px;border-radius:10px;font-weight:800;cursor:pointer;box-shadow:0 8px 22px rgba(184,143,42,0.18)}
-.btn-gold:active{transform:translateY(1px)}
+/* Botón primario (antes .btn-gold) */
+.btn-primary {
+  background: linear-gradient(180deg, var(--gold), var(--gold-dark));
+  color: #000;
+  box-shadow: 0 8px 22px rgba(184, 143, 42, 0.18);
+}
 
-.btn-white-outline{background:transparent;border:1px solid rgba(255,255,255,0.95);color:var(--white);padding:8px 12px;border-radius:10px;cursor:pointer}
-.btn-white-outline:hover{background:rgba(255,255,255,0.03)}
+.btn-primary:hover {
+  background: linear-gradient(180deg, var(--gold), #d4af37);
+  transform: translateY(-2px);
+}
 
-.btn-plain.small{padding:6px 8px;font-size:0.9rem}
+.btn-primary:active {
+  transform: translateY(1px);
+}
 
-/* Backwards compatibility aliases */
-.cta{display:inline-block}
-.add-btn{display:inline-block}
+/* Botón de contorno dorado (antes .btn-gold-outline) */
+.btn-gold-outline {
+  background: transparent;
+  border-color: var(--gold);
+  color: var(--gold);
+}
 
-/* .btn-cart removed — project uses .btn-gold-outline for add-to-cart buttons */
+.btn-gold-outline:hover {
+  background-color: rgba(212, 175, 55, 0.1);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Botón de contorno blanco */
+.btn-white-outline {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.95);
+  color: var(--white);
+}
+
+.btn-white-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Botón de WhatsApp */
+.btn-whatsapp {
+  background-color: #25D366;
+  color: white;
+  border-color: #25D366;
+}
+
+.btn-whatsapp:hover {
+  background-color: #128C7E;
+  border-color: #128C7E;
+}
+
+/* Iconos en botones */
+.btn-gold-outline i,
+.btn-whatsapp i {
+  margin-right: 8px;
+}
+
+/* Botones en tarjetas de producto */
+.card-item .card-footer .btn-gold-outline {
+  padding: 8px 16px !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+.card-item .card-footer .btn-gold-outline:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(212, 175, 55, 0.08) !important;
+}
+
+/* Botón simple */
+.btn-plain.small {
+  padding: 6px 8px;
+  font-size: 0.9rem;
+}
+
+/* Alias de compatibilidad */
+.cta {
+  display: inline-block;
+}
+
+.add-btn {
+  display: inline-block;
+}
+
+/* Cart panel controls: cierre y controles de cantidad */
+.close-btn {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  z-index: 90;
+  background: #ffffff;
+  color: #111;
+  border: 0;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.28);
+  transition: transform .14s ease, box-shadow .14s ease, opacity .14s ease;
+}
+.close-btn:hover { transform: translateY(-2px); }
+.close-btn:active { transform: translateY(1px); }
+.close-btn:focus { outline: 3px solid rgba(212,175,55,0.18); outline-offset: 2px; }
+
+/* entrance animation tied to cart-panel.open */
+.cart-panel .close-btn { opacity: 0; transform: translateY(-6px) scale(.95); transition: opacity 260ms ease, transform 260ms cubic-bezier(.2,.9,.2,1); }
+.cart-panel.open .close-btn { opacity: 1; transform: translateY(0) scale(1); }
+
+.qty-controls { display:flex; flex-direction:column; align-items:center; gap:8px; }
+.qty-controls .btn-plain {
+  width:40px;
+  height:36px;
+  min-width:40px;
+  border-radius:8px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: #ffffff;
+  color: #111;
+  font-weight:700;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.qty-controls .btn-plain:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.12); }
+.qty-controls .btn-plain:active { transform: translateY(1px); }
+.qty-controls .btn-plain:focus { outline: 3px solid rgba(0,0,0,0.06); outline-offset: 2px; }
+
+.cart-item .remove { background:#fff; color:#111; padding:6px 10px; border-radius:8px; border:1px solid rgba(0,0,0,0.06); font-size:13px; }
+
+/* Ensure good spacing on small screens */
+@media (max-width:480px){
+  .qty-controls .btn-plain { width:36px; height:34px; }
+  .close-btn { width:34px; height:34px; }
+}

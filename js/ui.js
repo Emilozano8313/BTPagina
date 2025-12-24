@@ -1,3 +1,20 @@
+/* --- Data Configuration --- */
+const MENU_ITEMS = [
+  { name: "Tapioca Chocolate", price: 88.00, img: "img/Chocolate.jpg", desc: "Batido cremoso con intenso chocolate y perlas suaves." },
+  { name: "Tapioca Mazapán", price: 88.00, img: "img/Mazapan.jpg", desc: "Toque a mazapán para un sabor reconfortante." },
+  { name: "Tapioca Mora Azul", price: 88.00, img: "img/MoraAzul.jpg", desc: "Refrescante y frutal, notas ácidas y dulces." },
+  { name: "Tapioca Taro", price: 88.00, img: "img/Taro.jpg", desc: "Sabor suave y aterciopelado, favorito de la casa." },
+  { name: "Tapioca Matcha", price: 88.00, img: "img/Matcha.jpg", desc: "Matcha balanceado con leche cremosa y perlas." },
+  { name: "Tapioca Especial", price: 88.00, img: "img/Chocolate.jpg", desc: "Selección premium con toppings exclusivos." }
+];
+
+const FAQ_ITEMS = [
+  { q: "¿Cuáles son los horarios de atención?", a: "Abrimos de Martes a Domingo de 01:00 pm a 09:00 pm." },
+  { q: "¿Tienen servicio a domicilio?", a: "Sí, puedes pedir a través de WhatsApp y coordinamos la entrega." },
+  { q: "¿Aceptan pagos con tarjeta?", a: "Actualmente aceptamos efectivo y transferencias bancarias." },
+  { q: "¿Los productos contienen lácteos?", a: "La mayoría de nuestros frappés contienen leche, pero puedes preguntar por opciones deslactosadas o de almendra (sujeto a disponibilidad)." }
+];
+
 (function(){
   const cartCountEl = document.getElementById('cartCount');
   const cartPanel = document.getElementById('cartPanel');
@@ -6,6 +23,53 @@
   const toast = document.getElementById('toast');
 
   function formatCurrency(v){ return '$' + Number(v).toFixed(2) + ' MXN'; }
+
+  /* --- Menu Rendering --- */
+  window.renderMenu = function(){
+    const grid = document.getElementById('menuGrid');
+    if(!grid) return;
+    grid.innerHTML = '';
+    MENU_ITEMS.forEach(item => {
+      const article = document.createElement('article');
+      article.className = 'card-item';
+      article.dataset.name = item.name;
+      article.dataset.price = item.price.toFixed(2);
+      article.innerHTML = `
+        <img src="${item.img}" alt="${item.name}">
+        <h4>${item.name}</h4>
+        <p class="small">${item.desc}</p>
+        <div class="card-footer">
+          <span class="price">${formatCurrency(item.price)}</span>
+          <button class="btn btn-gold-outline" onclick="handleAddToCart(this)"><i class="fas fa-shopping-cart"></i> Agregar al carrito</button>
+        </div>
+      `;
+      grid.appendChild(article);
+    });
+  };
+
+  /* --- FAQ Rendering --- */
+  window.renderFAQ = function(){
+    const container = document.getElementById('faqAccordion');
+    if(!container) return;
+    container.innerHTML = '';
+    FAQ_ITEMS.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'faq-item';
+      div.innerHTML = `
+        <div class="faq-header">
+          <span>${item.q}</span>
+          <i class="fas fa-chevron-down faq-icon"></i>
+        </div>
+        <div class="faq-content">
+          <p>${item.a}</p>
+        </div>
+      `;
+      div.querySelector('.faq-header').addEventListener('click', () => {
+        div.classList.toggle('active');
+      });
+      container.appendChild(div);
+    });
+  };
 
   window.renderCart = function(){
     const cart = Cart.get();
@@ -54,6 +118,8 @@
   document.getElementById('checkoutWhatsapp').addEventListener('click', function(e){ if(this.classList.contains('disabled') || !this.href || this.getAttribute('aria-disabled') === 'true'){ e.preventDefault(); showToast('Agrega productos al pedido antes de enviar.'); return; } e.preventDefault(); try{ window.open(this.href, '_blank'); }catch(err){ window.location.href = this.href; } });
 
   document.getElementById('currentYear').innerText = new Date().getFullYear();
+  renderMenu(); // Initialize Menu
+  renderFAQ();  // Initialize FAQ
   renderCart();
 })();
 
@@ -107,6 +173,10 @@
   searchInput.addEventListener('input', (e)=>{
     const q = searchInput.value.trim().toLowerCase();
     if(!q){ clearTypeahead(); return; }
+    // CHANGE: Use global MENU_ITEMS if available, otherwise fallback to DOM scraping (simpler to just search DOM for visual match or MENU_ITEMS for data match, but stick to DOM scraping for scrolling behavior)
+    // Actually, since we render menu items dynamically, we can just search MENU_ITEMS or wait for render.
+    // The original logic scraped DOM nodes. Since renderMenu() runs immediately, the DOM nodes will exist.
+    // So distinct logic change isn't strictly necessary, but let's ensure we wait for render if needed.
     const items = Array.from(document.querySelectorAll('.card-item')).map(it=>it.dataset.name).filter(Boolean);
     const matches = items.filter(n=> n.toLowerCase().includes(q)).slice(0,8);
     renderTypeahead(matches);
