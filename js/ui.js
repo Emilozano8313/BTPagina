@@ -201,7 +201,7 @@ const FAQ_ITEMS = [
           <p><strong>1. Aceptación:</strong> Al realizar un pedido en BlackTapioca, aceptas estos términos.</p>
           <p><strong>2. Pedidos y Pagos:</strong> Aceptamos efectivo, transferencias y tarjetas. Los pedidos por WhatsApp requieren confirmación.</p>
           <p><strong>3. Entregas:</strong> El servicio a domicilio se coordina via WhatsApp o plataformas externas. BlackTapioca no se hace responsable por demoras de terceros.</p>
-          <p><strong>4. Reembolsos:</strong> Debido a la naturaleza perecedera de nuestros productos, no ofrecemos reembolsos una vez preparada la bebida, salvo error de nuestra parte.</p>
+          <p><strong>4. Reembolsos:</strong> Debido a la naturaleza perecedera de nuestros productos, no ofrecemos reembolsos en efectivo. En caso de error o inconformidad justificada, realizaremos el cambio del producto.</p>
           <p><strong>5. Privacidad:</strong> Tus datos solo se usan para procesar tu pedido y mejorar tu experiencia.</p>
           <p style="text-align:center;margin-top:24px;font-style:italic">Gracias por elegir BlackTapioca.</p>
         </div>
