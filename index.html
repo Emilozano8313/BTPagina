@@ -15,21 +15,21 @@
 </head>
 
 <body>
+  <a href="#menu" class="skip-link">Saltar al menú</a>
 
   <header class="site-header" role="banner">
     <div class="header-inner container">
       <div class="brand">
         <a href="/" aria-label="BlackTapioca Home"><img src="img/logoBlanco.png" alt="BlackTapioca" /></a>
-        <div style="display:flex;flex-direction:column">
-          <strong style="color:var(--gold)">BlackTapioca</strong>
+        <div class="brand-copy">
+          <strong class="brand-title">BlackTapioca</strong>
           <small class="small">Somos tu mejor opción</small>
         </div>
       </div>
 
       <nav aria-label="Principal" class="nav-actions">
-        <div class="search-wrap" style="position:relative">
-          <span
-            style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted)">&#x1F50D;</span>
+        <div class="search-wrap">
+          <span class="search-icon">&#x1F50D;</span>
           <input id="searchInput" class="search-input" type="search" autocomplete="off"
             placeholder="Buscar sabor, ingrediente o topping" aria-label="Buscar en el menú">
           <div id="typeahead" class="typeahead-list" role="listbox" aria-label="Sugerencias"></div>
@@ -47,21 +47,44 @@
       <div class="hero-media">
         <video src="img/Video_Editing_Request_And_Completion.mp4" autoplay muted loop playsinline></video>
       </div>
-      <div class="hero-content" style="text-align:center;align-self:center">
+      <div class="hero-content hero-content-centered">
         <h1 id="hero-heading">Black Tapioca frescura y sabor en cada sorbo</h1>
         <p class="lead">Descubre nuestras recetas con perla de tapioca oscura. Pide fácil y recibe en poco
           tiempo.</p>
-        <div style="margin-top:18px;display:flex;gap:12px;align-items:center;justify-content:center">
+        <div class="hero-actions">
           <a href="#menu" class="btn btn-primary">Explorar Menú</a>
           <a class="btn btn-whatsapp" href="https://wa.me/7774467451"><i class="fab fa-whatsapp"></i> Pedir por
             WhatsApp</a>
         </div>
+        <div class="hero-trust">
+          <span>Entrega rapida en tu zona</span>
+          <span>Pago con efectivo, tarjeta y transferencia</span>
+          <span>Atencion de Martes a Domingo</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="container how-order" aria-labelledby="how-order-heading">
+      <h2 id="how-order-heading" class="section-title">Pide en 3 pasos</h2>
+      <div class="steps-grid">
+        <article class="step-card">
+          <strong>1. Elige tu sabor</strong>
+          <p class="small">Explora el menú y agrega tus favoritos al carrito.</p>
+        </article>
+        <article class="step-card">
+          <strong>2. Revisa tu pedido</strong>
+          <p class="small">Ajusta cantidades y confirma el total antes de enviar.</p>
+        </article>
+        <article class="step-card">
+          <strong>3. Envíalo por WhatsApp</strong>
+          <p class="small">Te atendemos rápido para coordinar entrega o recolección.</p>
+        </article>
       </div>
     </section>
 
     <section id="menu" class="container" aria-labelledby="menu-heading">
       <h2 id="menu-heading" class="section-title">Nuestro Menú</h2>
-      <p class="small" style="margin-top:6px">Sabores seleccionados, tamaño único. Todos los frappes $88 MXN.</p>
+      <p class="small menu-subtitle">Sabores seleccionados, tamaño único. Todos los frappes $88 MXN.</p>
 
       <div class="menu-grid" id="menuGrid">
         <!-- Rendered by JS -->
@@ -75,23 +98,22 @@
           seleccionados. Nos enfocamos en consistencia, sabor y servicio rápido.</p>
       </section>
 
-      <section id="social-proof" style="margin-top:18px">
+      <section id="social-proof" class="section-spaced">
 
-        <div id="suggestionsList" style="margin-top:14px">
-          <h4 style="color:var(--gold);margin:8px 0;font-size:1.2rem">¿Falta tu favorito? ¡Pídelo!</h4>
-          <p class="small" style="margin-bottom:12px">¡Sé el primero en proponer un sabor legendario! Si no ves lo que
+        <div id="suggestionsList" class="suggestions-list">
+          <h4 class="suggestions-title">¿Falta tu favorito? ¡Pídelo!</h4>
+          <p class="small suggestions-text">¡Sé el primero en proponer un sabor legendario! Si no ves lo que
             buscas, ¡dinos y lo creamos!</p>
-          <div id="suggestionsContainer"
-            style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:14px">
+          <div id="suggestionsContainer" class="suggestions-container">
           </div>
-          <button id="btnSuggestFlavor" class="btn btn-primary" style="width:100%">Sugerir un nuevo Sabor</button>
+          <button id="btnSuggestFlavor" class="btn btn-primary suggestions-button">Sugerir un nuevo Sabor</button>
         </div>
       </section>
     </aside>
 
-    <section id="location" class="container" style="margin-top:18px">
+    <section id="location" class="container section-spaced">
       <h3 class="section-title">Encuéntranos</h3>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+      <div class="location-grid">
         <div>
           <p class="small"><strong>Dirección:</strong> Av Petrichioli 5ta terraza Lomas de Ahuatlan</p>
           <p class="small"><strong>Horario:</strong> Martes a Domingo de 02:00 pm - 09:00 pm </p>
@@ -105,12 +127,12 @@
       </div>
     </section>
 
-    <section id="faq" class="container" style="margin-top:18px">
+    <section id="faq" class="container section-spaced">
       <h3 class="section-title">Preguntas Frecuentes</h3>
       <div class="faq-accordion" id="faqAccordion"></div>
     </section>
 
-    <section id="contact" class="container" style="margin-top:18px">
+    <section id="contact" class="container section-spaced">
       <h3 class="section-title">Contacto</h3>
       <p class="small">WhatsApp: <a id="whatsappLink" href="https://wa.me/7774467451"
           style="color:var(--brand-secondary)">7774467451</a></p>

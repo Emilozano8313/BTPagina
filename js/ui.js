@@ -16,11 +16,59 @@ const FAQ_ITEMS = [
 ];
 
 (function () {
+  const METRICS_KEY = 'bt_conversion_metrics_v1';
   const cartCountEl = document.getElementById('cartCount');
   const cartPanel = document.getElementById('cartPanel');
   const cartItemsEl = document.getElementById('cartItems');
   const cartTotalEl = document.getElementById('cartTotal');
   const toast = document.getElementById('toast');
+
+  function trackEvent(eventName, payload = {}) {
+    let metrics = {};
+    try {
+      metrics = JSON.parse(localStorage.getItem(METRICS_KEY) || '{}');
+    } catch (error) {
+      metrics = {};
+    }
+    const current = metrics[eventName] || { count: 0, lastAt: null, samples: [] };
+    current.count += 1;
+    current.lastAt = new Date().toISOString();
+    current.samples = [payload, ...(current.samples || [])].slice(0, 10);
+    metrics[eventName] = current;
+    localStorage.setItem(METRICS_KEY, JSON.stringify(metrics));
+  }
+
+  function setupScrollReveal() {
+    const targets = document.querySelectorAll('.hero, .how-order, #menu, #social-proof, #location, #faq, #contact, .card-item, .step-card, .faq-item');
+    if (!targets.length) return;
+
+    targets.forEach((el) => el.classList.add('reveal-on-scroll'));
+
+    if (!('IntersectionObserver' in window)) {
+      targets.forEach((el) => el.classList.add('revealed'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    targets.forEach((el) => observer.observe(el));
+  }
+
+  function bindConversionTracking() {
+    const waButtons = document.querySelectorAll('.btn-whatsapp, .floating-whatsapp');
+    waButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        trackEvent('whatsapp_click', { source: button.className || 'unknown' });
+      });
+    });
+  }
 
   function formatCurrency(v) { return '$' + Number(v).toFixed(2) + ' MXN'; }
 
@@ -35,7 +83,7 @@ const FAQ_ITEMS = [
       article.dataset.name = item.name;
       article.dataset.price = item.price.toFixed(2);
       article.innerHTML = `
-        <img src="${item.img}" alt="${item.name}">
+        <img src="${item.img}" alt="${item.name}" loading="lazy" decoding="async">
         <h4>${item.name}</h4>
         <p class="small">${item.desc}</p>
         <div class="card-footer">
@@ -52,20 +100,23 @@ const FAQ_ITEMS = [
     const container = document.getElementById('faqAccordion');
     if (!container) return;
     container.innerHTML = '';
-    FAQ_ITEMS.forEach(item => {
+    FAQ_ITEMS.forEach((item, idx) => {
       const div = document.createElement('div');
       div.className = 'faq-item';
+      const faqId = `faq-content-${idx}`;
       div.innerHTML = `
-        <div class="faq-header">
+        <button class="faq-header" aria-expanded="false" aria-controls="${faqId}">
           <span>${item.q}</span>
           <i class="fas fa-chevron-down faq-icon"></i>
-        </div>
-        <div class="faq-content">
+        </button>
+        <div class="faq-content" id="${faqId}">
           <p>${item.a}</p>
         </div>
       `;
-      div.querySelector('.faq-header').addEventListener('click', () => {
-        div.classList.toggle('active');
+      div.querySelector('.faq-header').addEventListener('click', (event) => {
+        const header = event.currentTarget;
+        const isOpen = div.classList.toggle('active');
+        header.setAttribute('aria-expanded', String(isOpen));
       });
       container.appendChild(div);
     });
@@ -76,6 +127,9 @@ const FAQ_ITEMS = [
     const count = cart.reduce((s, i) => s + i.qty, 0);
     cartCountEl.innerText = count;
     cartItemsEl.innerHTML = '';
+    if (cart.length === 0) {
+      cartItemsEl.innerHTML = '<p class="cart-empty">Tu carrito esta vacio. Agrega tu frappe favorito para continuar.</p>';
+    }
     cart.forEach((it, idx) => {
       const div = document.createElement('div'); div.className = 'cart-item';
       div.innerHTML = `
@@ -116,12 +170,14 @@ const FAQ_ITEMS = [
 
   document.getElementById('closeCart').addEventListener('click', () => { cartPanel.classList.remove('open'); setTimeout(() => { cartPanel.style.display = 'none'; }, 260); document.getElementById('cartToggle').setAttribute('aria-expanded', 'false'); });
 
-  document.getElementById('checkoutWhatsapp').addEventListener('click', function (e) { if (this.classList.contains('disabled') || !this.href || this.getAttribute('aria-disabled') === 'true') { e.preventDefault(); showToast('Agrega productos al pedido antes de enviar.'); return; } e.preventDefault(); try { window.open(this.href, '_blank'); } catch (err) { window.location.href = this.href; } });
+  document.getElementById('checkoutWhatsapp').addEventListener('click', function (e) { if (this.classList.contains('disabled') || !this.href || this.getAttribute('aria-disabled') === 'true') { e.preventDefault(); showToast('Agrega productos al pedido antes de enviar.'); return; } trackEvent('checkout_whatsapp_click', { items: Cart.get().length, total: Cart.total() }); e.preventDefault(); try { window.open(this.href, '_blank'); } catch (err) { window.location.href = this.href; } });
 
   document.getElementById('currentYear').innerText = new Date().getFullYear();
   renderMenu(); // Initialize Menu
   renderFAQ();  // Initialize FAQ
   renderCart();
+  setupScrollReveal();
+  bindConversionTracking();
 })();
 
 /* --- Search: typeahead + suggestions renderer --- */
@@ -243,10 +299,6 @@ const FAQ_ITEMS = [
   searchInput.addEventListener('input', (e) => {
     const q = searchInput.value.trim().toLowerCase();
     if (!q) { clearTypeahead(); return; }
-    // CHANGE: Use global MENU_ITEMS if available, otherwise fallback to DOM scraping (simpler to just search DOM for visual match or MENU_ITEMS for data match, but stick to DOM scraping for scrolling behavior)
-    // Actually, since we render menu items dynamically, we can just search MENU_ITEMS or wait for render.
-    // The original logic scraped DOM nodes. Since renderMenu() runs immediately, the DOM nodes will exist.
-    // So distinct logic change isn't strictly necessary, but let's ensure we wait for render if needed.
     const items = Array.from(document.querySelectorAll('.card-item')).map(it => it.dataset.name).filter(Boolean);
     const matches = items.filter(n => n.toLowerCase().includes(q)).slice(0, 8);
     renderTypeahead(matches);
@@ -279,5 +331,31 @@ function handleAddToCart(btn) {
   const price = parseFloat(card.dataset.price) || 0;
   Cart.addItem(name, price);
   renderCart();
+  try {
+    const key = 'bt_conversion_metrics_v1';
+    const all = JSON.parse(localStorage.getItem(key) || '{}');
+    const current = all.add_to_cart || { count: 0, lastAt: null, samples: [] };
+    current.count += 1;
+    current.lastAt = new Date().toISOString();
+    current.samples = [{ name, price }, ...(current.samples || [])].slice(0, 10);
+    all.add_to_cart = current;
+    localStorage.setItem(key, JSON.stringify(all));
+  } catch (error) {
+    // Ignore metrics errors to never block checkout flow.
+  }
   showToast(name + ' añadido');
+}
+
+function clearCart() {
+  Cart.clear();
+  renderCart();
+  showToast('Carrito vaciado');
+}
+
+function getConversionMetrics() {
+  try {
+    return JSON.parse(localStorage.getItem('bt_conversion_metrics_v1') || '{}');
+  } catch (error) {
+    return {};
+  }
 }

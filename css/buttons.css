@@ -4,6 +4,8 @@
   font-weight: 700;
   text-align: center;
   vertical-align: middle;
+  line-height: 1.2;
+  white-space: normal;
   cursor: pointer;
   border: 1.6px solid transparent;
   padding: 10px 16px;
@@ -26,6 +28,17 @@
 
 .btn-primary:active {
   transform: translateY(1px);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: var(--white);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.45);
 }
 
 /* Botón de contorno dorado (antes .btn-gold-outline) */
@@ -62,6 +75,12 @@
 .btn-whatsapp:hover {
   background-color: #128C7E;
   border-color: #128C7E;
+}
+
+.btn.disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.55;
+  pointer-events: none;
 }
 
 /* Iconos en botones */
@@ -151,4 +170,22 @@
 @media (max-width:480px){
   .qty-controls .btn-plain { width:36px; height:34px; }
   .close-btn { width:34px; height:34px; }
+}
+
+@media (max-width:390px) {
+  .btn {
+    padding: 9px 12px;
+    font-size: 0.93rem;
+  }
+
+  .card-item .card-footer .btn-gold-outline {
+    padding: 8px 12px !important;
+  }
+}
+
+@media (max-width:320px) {
+  .btn {
+    font-size: 0.88rem;
+    padding: 8px 10px;
+  }
 }

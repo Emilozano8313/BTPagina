@@ -15,12 +15,9 @@ Estructura principal (actual)
   - components.css
   - buttons.css
   - main-styles.css  (importa los anteriores)
-  - styles.css       (versión legacy / copia)
 - js/
   - cart.js          (lógica de carrito: API global `Cart`)
   - ui.js            (renderizado y bindings UI)
-  - app.js           (versión legacy / copia)
-  - main-script.js   (otra copia legacy)
 - img/ (imágenes usadas por la web)
 
 Cómo ejecutar localmente
@@ -58,19 +55,16 @@ Guía rápida de mantenimiento
   - `css/buttons.css` contiene estilos de botones y CTAs.
   - Usa `css/main-styles.css` como punto de import (no edites si prefieres separar módulos).
 
-Limpieza recomendada (opcional)
-------------------------------
-Actualmente hay archivos “legacy” que son copias de versiones anteriores y pueden causar confusión si se mantienen:
-- `css/styles.css` (copia completa de estilos antiguos)
-- `js/app.js` y `js/main-script.js` (copias antiguas del script)
+- Ver métricas básicas de conversión (local):
+  - La página guarda clics en CTA y carrito en `localStorage` bajo la llave `bt_conversion_metrics_v1`.
+  - En consola del navegador puedes ejecutar `getConversionMetrics()` para inspeccionarlas.
 
-Si adoptas la estructura modular (recomendada), elimina los archivos legacy para evitar duplicidad:
-
-```bash
-rm css/styles.css
-rm js/app.js
-rm js/main-script.js
-```
+Limpieza aplicada
+-----------------
+La estructura legacy ya fue eliminada para evitar duplicidad y confusiones:
+- `css/styles.css`
+- `js/app.js`
+- `js/main-script.js`
 
 Comprobación automática de rutas (resultado)
 ------------------------------------------

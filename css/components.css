@@ -9,6 +9,17 @@
   transition: all .3s ease
 }
 
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 420ms ease, transform 420ms ease;
+}
+
+.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .card-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 30px var(--shadow-main)
@@ -60,6 +71,20 @@
   display: none
 }
 
+.cart-count {
+  background: var(--gold);
+  color: #111;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 99px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 0 6px;
+}
+
 .cart-panel {
   position: fixed;
   right: 18px;
@@ -91,8 +116,8 @@
     left: 12px;
     right: 12px;
     width: auto;
-    top: 150px;
-    max-height: 60vh;
+    top: 132px;
+    max-height: 66vh;
     z-index: 110
   }
 
@@ -103,6 +128,74 @@
     width: 50px;
     height: 50px;
     font-size: 26px;
+  }
+
+  .card-item img {
+    height: 170px;
+  }
+}
+
+@media (max-width:414px) {
+  .card-item {
+    padding: 10px;
+  }
+
+  .card-item img {
+    height: 160px;
+  }
+
+  .faq-header {
+    padding: 13px;
+    font-size: 0.94rem;
+  }
+}
+
+@media (max-width:390px) {
+  .card-item h4 {
+    font-size: 1.05rem;
+  }
+
+  .card-item p {
+    font-size: 0.92rem;
+  }
+
+  .suggestion-chip {
+    padding: 7px 9px;
+  }
+}
+
+@media (max-width:360px) {
+  .cart-panel {
+    left: 8px;
+    right: 8px;
+    top: 124px;
+    padding: 12px;
+    max-height: 68vh;
+  }
+
+  .card-item img {
+    height: 150px;
+  }
+
+  .floating-whatsapp {
+    width: 46px;
+    height: 46px;
+    font-size: 24px;
+  }
+}
+
+@media (max-width:320px) {
+  .card-item {
+    padding: 9px;
+  }
+
+  .card-item img {
+    height: 138px;
+  }
+
+  .faq-header {
+    padding: 12px;
+    font-size: 0.9rem;
   }
 }
 
@@ -152,11 +245,12 @@
   background: rgba(255, 215, 0, 0.06);
   border: 1px solid rgba(255, 215, 0, 0.12);
   padding: 8px 10px;
-  border-radius: 999px;
+  border-radius: 14px;
   color: var(--gold);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 8px
 }
 
@@ -179,6 +273,28 @@
   text-align: center;
   font-size: 1rem;
   color: var(--muted);
+}
+
+.step-card {
+  background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+}
+
+.step-card strong {
+  color: var(--gold);
+  display: inline-block;
+  margin-bottom: 6px;
+}
+
+.cart-empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 16px 10px;
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
 }
 
 .card-item h4 {
@@ -246,6 +362,9 @@
 }
 
 .faq-header {
+  width: 100%;
+  border: 0;
+  background: transparent;
   padding: 16px;
   display: flex;
   justify-content: space-between;
@@ -253,6 +372,7 @@
   cursor: pointer;
   font-weight: 600;
   color: var(--text-main);
+  text-align: left;
 }
 
 .faq-header:hover {
