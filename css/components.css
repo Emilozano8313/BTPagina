@@ -151,6 +151,13 @@
 }
 
 @media (max-width:390px) {
+  .reveal-on-scroll,
+  .revealed {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
   .card-item h4 {
     font-size: 1.05rem;
   }
